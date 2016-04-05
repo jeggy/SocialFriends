@@ -31,7 +31,7 @@ class StartViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "loginSegue" {
-            let tabBar = segue.destinationViewController as! TabBarViewController
+            let tabBar = (segue.destinationViewController as! UINavigationController).topViewController as! TabBarViewController
             tabBar.user = user!
             tabBar.db = db
         } else if segue.identifier == "registerSegue" {

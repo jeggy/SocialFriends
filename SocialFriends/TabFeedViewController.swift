@@ -19,7 +19,7 @@ class TabFeedViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let inset = UIEdgeInsetsMake(50,0,0,0) // TODO: Fix this.
+        let inset = UIEdgeInsetsMake(55,0,0,0) // TODO: Fix this.
         self.tableView.contentInset = inset
         
         let tabBar = tabBarController as! TabBarViewController
@@ -71,6 +71,12 @@ class TabFeedViewController: UITableViewController {
         }
     }
     
+    func likeOnPressed(sender: UIButton) {
+        let buttonRow = sender.tag
+        print(posts[buttonRow].content)
+    }
+    
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count+1
     }
@@ -85,6 +91,10 @@ class TabFeedViewController: UITableViewController {
             cell.contentTextView?.text = post.content
             cell.likesButton.setTitle(addS(post.likes!.count, text: "Like"), forState: .Normal)
             cell.commentsButton.setTitle(addS(post.comments!.count, text: "Comment"), forState: .Normal)
+            
+            cell.likesButton.tag = indexPath.row
+            cell.likesButton.addTarget(self, action: "likeOnPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            
             return cell
         }
         newPostField = tableView.dequeueReusableCellWithIdentifier("newPostCell", forIndexPath: indexPath) as! NewPostTableViewCell
