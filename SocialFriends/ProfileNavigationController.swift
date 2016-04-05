@@ -16,7 +16,10 @@ class ProfileNavigationController: UINavigationController {
         // Do any additional setup after loading the view.
     }
     
+    
     @IBAction func returned(sender: UIStoryboardSegue){
+        print(sender.destinationViewController)
+        print(sender.identifier)
         print("test")
     }
     

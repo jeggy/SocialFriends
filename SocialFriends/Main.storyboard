@@ -248,36 +248,11 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="hji-hJ-OoL">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="lyh-bQ-XZs">
-                            <connections>
-                                <segue destination="1WV-Se-wuR" kind="unwind" unwindAction="returned:" id="4dV-4I-zbo"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="hji-hJ-OoL"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5hK-ap-JSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="1WV-Se-wuR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1762.5" y="-1052.5"/>
-        </scene>
-        <!--Profile Navigation Controller-->
-        <scene sceneID="pXz-hn-Ihy">
-            <objects>
-                <navigationController id="nUw-YT-886" customClass="ProfileNavigationController" customModule="SocialFriends" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mZ2-Fy-xZW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="l5u-PI-sTc" kind="relationship" relationship="rootViewController" id="lkT-xM-9aC"/>
-                        <segue destination="02O-E4-MPd" kind="unwind" unwindAction="returned:" id="dFl-Da-VeQ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gMh-BW-9zH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="02O-E4-MPd" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1096.5" y="-1052.5"/>
+            <point key="canvasLocation" x="1685.5" y="-789.5"/>
         </scene>
         <!--People-->
         <scene sceneID="cYh-PC-TaN">
@@ -291,6 +266,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search People" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RAM-WH-Bhi">
+                                <rect key="frame" x="20" y="20" width="335" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="searchFieldEdited:" destination="D6S-Lc-1iy" eventType="editingChanged" id="PGw-aY-vEM"/>
+                                </connections>
+                            </textField>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IcD-Nl-cUD">
                                 <rect key="frame" x="20" y="58" width="335" height="560"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -323,7 +306,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="nUw-YT-886" kind="show" id="hRP-NR-Ah3"/>
+                                            <segue destination="jJe-1L-qoE" kind="show" id="mZM-o5-TD0"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -332,14 +315,6 @@
                                     <outlet property="delegate" destination="D6S-Lc-1iy" id="kgE-4c-nm5"/>
                                 </connections>
                             </tableView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search People" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RAM-WH-Bhi">
-                                <rect key="frame" x="20" y="20" width="335" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="searchFieldEdited:" destination="D6S-Lc-1iy" eventType="editingChanged" id="PGw-aY-vEM"/>
-                                </connections>
-                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -549,6 +524,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T1z-03-5Zx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1701.5" y="1040.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="orv-XZ-Pa5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jJe-1L-qoE" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fav-Pq-BE0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="l5u-PI-sTc" kind="relationship" relationship="rootViewController" id="btp-7n-aa7"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xyf-JA-KEG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1024" y="-653"/>
         </scene>
     </scenes>
     <resources>
