@@ -2,6 +2,8 @@
 # https://github.com/github/gitignore/blob/master/Swift.gitignore
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
+.DS_STORE
+
 ## Build generated
 build/
 DerivedData/
