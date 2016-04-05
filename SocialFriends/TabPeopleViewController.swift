@@ -21,7 +21,7 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.tabBar = tabBarController as! TabBarViewController
         
-//        tabBar.tabBar.items?[1].badgeValue = "2"
+//        tabBar.tabBar.items?[1].badgeValue = "2" more comment test
         
         tabBar.db.loadAllUsers(completionHandler: whenUsersLoaded)
     }
