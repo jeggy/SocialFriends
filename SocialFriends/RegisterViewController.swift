@@ -44,7 +44,7 @@ class RegisterViewController: UIViewController, UIPickerViewDelegate, UIPickerVi
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "registeredSegue" {
-            let dest = segue.destinationViewController as? TabBarViewController
+            let dest = (segue.destinationViewController as! UINavigationController).topViewController as? TabBarViewController
             dest?.user = user!
             dest?.db = db
         }

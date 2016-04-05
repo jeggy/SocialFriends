@@ -27,6 +27,11 @@ class StartViewController: UIViewController {
         errorMessageLabel.text = ""
         
     }
+    
+    @IBAction func returned(sender: UIStoryboard){
+        // TODO: Return from register storyboard. using navigation controller or something.
+        print("Testing")
+    }
 
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
