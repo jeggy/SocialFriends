@@ -1,25 +1,28 @@
 //
-//  ViewController.swift
+//  ProfileNavigationController.swift
 //  SocialFriends
 //
-//  Created by Jógvan Olsen on 3/5/16.
+//  Created by Jógvan Olsen on 4/5/16.
 //  Copyright © 2016 Jógvan Olsen. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ProfileNavigationController: UINavigationController {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Do any additional setup after loading the view.
     }
-
+    
+    @IBAction func returned(sender: UIStoryboardSegue){
+        print("test")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
 }
-
