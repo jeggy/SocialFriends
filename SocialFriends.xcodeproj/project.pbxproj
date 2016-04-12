@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		130481371C90710F002BC62F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130481361C90710F002BC62F /* Post.swift */; };
 		130481391C907286002BC62F /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130481381C907286002BC62F /* Comment.swift */; };
+		136186D71CBA806500978825 /* TabMyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136186D61CBA806500978825 /* TabMyProfileViewController.swift */; };
 		136E81D41CAF18AF007973F3 /* TabPeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136E81D31CAF18AF007973F3 /* TabPeopleViewController.swift */; };
 		138A541E1C8DDD47004562AF /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138A541D1C8DDD47004562AF /* Database.swift */; };
 		13A7F4291CA96D47002C2573 /* NewPostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13A7F4281CA96D47002C2573 /* NewPostTableViewCell.swift */; };
@@ -21,7 +22,6 @@
 		13B4CBB61C8B8FA700E1C80F /* TabFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4CBB51C8B8FA700E1C80F /* TabFeedViewController.swift */; };
 		13B4CBB81C8B8FB800E1C80F /* TabSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4CBB71C8B8FB800E1C80F /* TabSettingsViewController.swift */; };
 		13B4CBBA1C8C797A00E1C80F /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4CBB91C8C797A00E1C80F /* TabBarViewController.swift */; };
-		13B4CBBC1C8C7ECE00E1C80F /* TabFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4CBBB1C8C7ECE00E1C80F /* TabFriendsViewController.swift */; };
 		13B4CBBE1C8C7EDB00E1C80F /* TabChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4CBBD1C8C7EDB00E1C80F /* TabChatViewController.swift */; };
 		13B4CBC01C8C7EF100E1C80F /* TabProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13B4CBBF1C8C7EF100E1C80F /* TabProfileViewController.swift */; };
 		13B4CBC31C8C834D00E1C80F /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13B4CBC21C8C834D00E1C80F /* CloudKit.framework */; };
@@ -30,6 +30,7 @@
 		13BE39181C9C014D00BC0A1F /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13BE39171C9C014D00BC0A1F /* PostTableViewCell.swift */; };
 		13C3D3F21CB3E711006D73E9 /* ProfileNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C3D3F11CB3E711006D73E9 /* ProfileNavigationController.swift */; };
 		13C3D3F61CB3F2EF006D73E9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13C3D3F51CB3F2EF006D73E9 /* Main.storyboard */; };
+		13C3D3F91CB67971006D73E9 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13C3D3F81CB67971006D73E9 /* Tools.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 /* Begin PBXFileReference section */
 		130481361C90710F002BC62F /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		130481381C907286002BC62F /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		136186D61CBA806500978825 /* TabMyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabMyProfileViewController.swift; sourceTree = "<group>"; };
 		136E81D31CAF18AF007973F3 /* TabPeopleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabPeopleViewController.swift; sourceTree = "<group>"; };
 		138A541D1C8DDD47004562AF /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		13A7F4281CA96D47002C2573 /* NewPostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPostTableViewCell.swift; sourceTree = "<group>"; };
@@ -70,7 +72,6 @@
 		13B4CBB51C8B8FA700E1C80F /* TabFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabFeedViewController.swift; sourceTree = "<group>"; };
 		13B4CBB71C8B8FB800E1C80F /* TabSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabSettingsViewController.swift; sourceTree = "<group>"; };
 		13B4CBB91C8C797A00E1C80F /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		13B4CBBB1C8C7ECE00E1C80F /* TabFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabFriendsViewController.swift; sourceTree = "<group>"; };
 		13B4CBBD1C8C7EDB00E1C80F /* TabChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabChatViewController.swift; sourceTree = "<group>"; };
 		13B4CBBF1C8C7EF100E1C80F /* TabProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabProfileViewController.swift; sourceTree = "<group>"; };
 		13B4CBC11C8C833F00E1C80F /* SocialFriends.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = SocialFriends.entitlements; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 		13BE39171C9C014D00BC0A1F /* PostTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		13C3D3F11CB3E711006D73E9 /* ProfileNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileNavigationController.swift; sourceTree = "<group>"; };
 		13C3D3F51CB3F2EF006D73E9 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		13C3D3F81CB67971006D73E9 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 		13B4CB841C8B7A7100E1C80F /* SocialFriends */ = {
 			isa = PBXGroup;
 			children = (
+				13C3D3F71CB67954006D73E9 /* tools */,
 				13A7F4271CA96D20002C2573 /* cells */,
 				13B4CBC11C8C833F00E1C80F /* SocialFriends.entitlements */,
 				13BE39191C9C142500BC0A1F /* model */,
@@ -178,11 +181,11 @@
 			children = (
 				13B4CBB71C8B8FB800E1C80F /* TabSettingsViewController.swift */,
 				13B4CBB51C8B8FA700E1C80F /* TabFeedViewController.swift */,
-				13B4CBBB1C8C7ECE00E1C80F /* TabFriendsViewController.swift */,
 				136E81D31CAF18AF007973F3 /* TabPeopleViewController.swift */,
 				13B4CBBD1C8C7EDB00E1C80F /* TabChatViewController.swift */,
 				13B4CBBF1C8C7EF100E1C80F /* TabProfileViewController.swift */,
 				13C3D3F11CB3E711006D73E9 /* ProfileNavigationController.swift */,
+				136186D61CBA806500978825 /* TabMyProfileViewController.swift */,
 			);
 			name = TabControllers;
 			sourceTree = "<group>";
@@ -214,6 +217,14 @@
 				13B4CBC71C8CAB6D00E1C80F /* RegisterViewController.swift */,
 			);
 			name = view;
+			sourceTree = "<group>";
+		};
+		13C3D3F71CB67954006D73E9 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				13C3D3F81CB67971006D73E9 /* Tools.swift */,
+			);
+			name = tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,6 +369,7 @@
 				138A541E1C8DDD47004562AF /* Database.swift in Sources */,
 				136E81D41CAF18AF007973F3 /* TabPeopleViewController.swift in Sources */,
 				13B4CBC81C8CAB6D00E1C80F /* RegisterViewController.swift in Sources */,
+				136186D71CBA806500978825 /* TabMyProfileViewController.swift in Sources */,
 				130481371C90710F002BC62F /* Post.swift in Sources */,
 				13B4CB881C8B7A7100E1C80F /* StartViewController.swift in Sources */,
 				13B4CBB81C8B8FB800E1C80F /* TabSettingsViewController.swift in Sources */,
@@ -367,7 +379,7 @@
 				130481391C907286002BC62F /* Comment.swift in Sources */,
 				13B4CBC51C8C891500E1C80F /* User.swift in Sources */,
 				13B4CBBA1C8C797A00E1C80F /* TabBarViewController.swift in Sources */,
-				13B4CBBC1C8C7ECE00E1C80F /* TabFriendsViewController.swift in Sources */,
+				13C3D3F91CB67971006D73E9 /* Tools.swift in Sources */,
 				13B4CBB61C8B8FA700E1C80F /* TabFeedViewController.swift in Sources */,
 				13C3D3F21CB3E711006D73E9 /* ProfileNavigationController.swift in Sources */,
 			);

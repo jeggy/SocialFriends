@@ -27,19 +27,21 @@ class TabFeedViewController: UITableViewController {
         user = tabBar.user
         loadFeed()
         
-        
-        
         // Enable reload gesture
         self.refreshControl = UIRefreshControl()
         self.refreshControl!.attributedTitle = NSAttributedString(string: "")
         self.refreshControl!.addTarget(self, action: #selector(TabFeedViewController.refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.tabBarController!.navigationItem.title = "News feed"
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+    }
+    
     func refresh(sender:AnyObject){
         loadFeed()
     }
     
-    // TODO: Some bug, keeps loading when no posts are available.
     func loadFeed(){
         dispatch_async(dispatch_get_main_queue()){
             self.posts = []
@@ -50,7 +52,6 @@ class TabFeedViewController: UITableViewController {
         db.getFeed(user){
             posts in
             self.posts = posts
-            print("Loaded: \(posts.count)")
             dispatch_async(dispatch_get_main_queue()){
                 self.tableView.reloadData()
                 self.reloadInputViews()
@@ -71,8 +72,11 @@ class TabFeedViewController: UITableViewController {
         }
     }
     
-    func likeOnPressed(sender: UIButton) {
+    @IBAction func likeOnPressed(sender: UIButton) {
         let buttonRow = sender.tag
+//        db.like(post: posts[buttonRow], user: user){
+//            
+//        }
         print(posts[buttonRow].content)
     }
     
@@ -89,20 +93,17 @@ class TabFeedViewController: UITableViewController {
             cell.nameLabel?.text = post.user.fullname
             cell.timeLabel?.text = post.time.description // TODO:
             cell.contentTextView?.text = post.content
-            cell.likesButton.setTitle(addS(post.likes!.count, text: "Like"), forState: .Normal)
-            cell.commentsButton.setTitle(addS(post.comments!.count, text: "Comment"), forState: .Normal)
+            cell.likesButton.setTitle(Tools.addS(post.likes!.count, text: "Like"), forState: .Normal)
+            cell.commentsButton.setTitle(Tools.addS(post.comments!.count, text: "Comment"), forState: .Normal)
             
-            cell.likesButton.tag = indexPath.row
-            cell.likesButton.addTarget(self, action: "likeOnPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+            cell.likesButton.tag = indexPath.row-1
+            cell.likesButton.addTarget(self, action: #selector(TabFeedViewController.likeOnPressed(_:)), forControlEvents: .TouchUpInside)
             
             return cell
         }
+        
         newPostField = tableView.dequeueReusableCellWithIdentifier("newPostCell", forIndexPath: indexPath) as! NewPostTableViewCell
         return newPostField
-    }
-    
-    func addS(num: Int, text: String) -> String{
-        return "\(num) \(text)\((num==1) ? "" : "s")"
     }
     
     override func didReceiveMemoryWarning() {

@@ -16,7 +16,11 @@ class User: NSObject {
     let fullname:String
     let gender:String
     let about:String
-    var friends: [User]?
+    private var friends: [User: FriendStatus] = [:]
+    
+    enum FriendStatus {
+        case Accepted, Declined, Waiting
+    }
     
     init(record:CKRecord, username:String, fullname:String, gender:String, about:String) {
         self.record = record
@@ -24,6 +28,21 @@ class User: NSObject {
         self.fullname = fullname
         self.gender = gender
         self.about = about
+    }
+    
+    
+    // Friends stuff
+    func getFriends() -> [User]{
+        return [User](friends.keys)
+    }
+    
+    
+    func getFriendsAndStatus() -> [User: FriendStatus]{
+        return friends
+    }
+    
+    func addFriend(user user: User, status: FriendStatus){
+        friends.updateValue(status, forKey: user)
     }
     
     

@@ -45,27 +45,30 @@ class Database: NSObject {
                 posts in
                 userCount -= 1
                 allPosts += posts
-                
                 if userCount == 0{
                     ch(posts: allPosts)
                 }
             }
             
             self.loadFeed(user.record, completionHandler: userFeedLoaded)
-            for friend in user.friends!{
+            if user.getFriends().count == 0 {ch(posts: [])}
+            
+            let filtered = user.getFriendsAndStatus().filter({$1 == User.FriendStatus.Accepted})
+            
+            for (friend, _) in filtered{
                 userCount += 1
                 self.loadFeed(friend.record, completionHandler: userFeedLoaded)
             }
             
         }
         
-        
         // Load friends first if not loaded.
-        if user.friends == nil{
-            loadFriends(user, completionHandler: startLoadingFeed)
-        } else {
-            startLoadingFeed()
-        }
+        loadFriends(user, completionHandler: startLoadingFeed)
+
+    }
+    
+    func loadUserPosts(user:User, comletionHander ch: (posts:[Post]) -> Void){
+        loadFeed(user.record){ch(posts: $0)}
     }
     
     func loadFeed(userRecord: CKRecord, completionHandler ch: (posts: [Post]) -> Void){
@@ -79,6 +82,7 @@ class Database: NSObject {
                 var posts:[Post] = []
                 
                 var c = records!.count*2
+                // TODO: // if records?.count == 0 {ch(posts: [])}
                 for record in records!{
                     let user = record.objectForKey("user") as! CKReference
                     let content = record.objectForKey("content") as! String
@@ -294,8 +298,6 @@ class Database: NSObject {
     }
     
     func loadFriends(user: User, completionHandler ch: () -> Void){
-        user.friends = []
-
         let predicate1 = NSPredicate(format: "user_one == %@", user.record)
         let predicate2 = NSPredicate(format: "user_two == %@", user.record)
         let query1 = CKQuery(recordType: "friends", predicate: predicate1)
@@ -320,7 +322,14 @@ class Database: NSObject {
             for record in records!{
                 self.loadUser(record.objectForKey("user_two") as! CKReference){
                     friend in
-                    user.friends?.append(friend!)
+                    let status: User.FriendStatus!
+                    switch record.objectForKey("accepted") as! NSString{
+                        case "yes": status = .Accepted
+                        case "no": status = .Declined
+                        default: status = .Waiting
+                    }
+                    
+                    user.addFriend(user: friend!, status: status)
                     friendsCount -= 1
                     f()
                 }
@@ -340,7 +349,13 @@ class Database: NSObject {
             for record in records!{
                 self.loadUser(record.objectForKey("user_one") as! CKReference){
                     friend in
-                    user.friends?.append(friend!)
+                    let status: User.FriendStatus!
+                    switch record.objectForKey("accepted") as! NSString{
+                        case "yes": status = .Accepted
+                        case "no": status = .Declined
+                        default: status = .Waiting
+                    }
+                    user.addFriend(user: friend!, status: status)
                     friendsCount -= 1
                     f()
                 }
@@ -348,8 +363,39 @@ class Database: NSObject {
             
             both = true
         }
-
- 
+    }
+    
+    func addFriend(user1: User, _ user2: User){
+        let record = CKRecord(recordType: "friends")
+        
+        record.setObject(CKReference(record: user1.record, action: .DeleteSelf), forKey: "user_one")
+        record.setObject(CKReference(record: user2.record, action: .DeleteSelf), forKey: "user_two")
+        record.setObject("", forKey: "accepted")
+        record.setObject(NSDate(), forKey: "time")
+        
+        db.saveRecord(record){record,error in
+            print("Obla")
+            error?.description
+        }
+    }
+    
+    func unFriend(user1: User, _ user2: User){
+        let ref1 = CKReference(record: user1.record, action: .DeleteSelf)
+        let ref2 = CKReference(record: user2.record, action: .DeleteSelf)
+        let predicate1 = NSPredicate(format: "user_one == %@ AND user_two == %@", ref1, ref2)
+        let predicate2 = NSPredicate(format: "user_one == %@ AND user_two == %@", ref2, ref1)
+        let query1 = CKQuery(recordType: "friends", predicate: predicate1)
+        let query2 = CKQuery(recordType: "friends", predicate: predicate2)
+        
+        let rr: ([CKRecord]) -> Void = {
+            records in
+            for record in records{
+                self.db.deleteRecordWithID(record.recordID){_,_ in}
+            }
+        }
+        
+        db.performQuery(query1, inZoneWithID: nil){r,e in rr(r!)}
+        db.performQuery(query2, inZoneWithID: nil){r,e in rr(r!)}
     }
     
     func loadUser(userReference:CKReference, completionHandler ch: (user:User?) -> Void){

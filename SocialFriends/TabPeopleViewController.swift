@@ -11,10 +11,14 @@ import UIKit
 class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var people: [User] = []
+
     var tabBar: TabBarViewController!
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
+    var selectedProfile = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +26,7 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
         self.tabBar = tabBarController as! TabBarViewController
         
 //        tabBar.tabBar.items?[1].badgeValue = "2" more comment test
-        
+        loadingIndicator.startAnimating()
         tabBar.db.loadAllUsers(completionHandler: whenUsersLoaded)
     }
     
@@ -30,6 +34,18 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
         print("returned PeopleView")
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if(segue.identifier == "viewProfileSegue"){
+            let tab = segue.destinationViewController as! TabProfileViewController
+            tab.user = people[selectedProfile]
+            tab.db = tabBar.db
+            tab.me = tabBar.user
+        }
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        return false
+    }
     
     @IBAction func searchFieldEdited(sender: UITextField) {
         self.tableView.reloadData()
@@ -46,18 +62,12 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        self.people.sortInPlace{
-            u1, u2 in
-            for user in u1.friends!{
-                if user.username == self.tabBar.user.username{
-                    return true
-                }
-            }
-            return false
-        }
+        self.people.sortInPlace{Tools.areFriends($0, $1)}
         
         dispatch_async(dispatch_get_main_queue()){
             self.tableView.reloadData()
+            self.loadingIndicator.hidden = true
+            self.loadingIndicator.stopAnimating()
         }
     }
     
@@ -65,11 +75,14 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
     
     // Searching filter
     func searchFilter(user: User) -> Bool{
+        if searchTextField.text!.isEmpty{
+            return Tools.areFriends(self.tabBar.user, user)
+        }
+        
         let c1 = user.username.rangeOfString(searchTextField.text!, options: .CaseInsensitiveSearch) != nil
         let c2 = user.fullname.rangeOfString(searchTextField.text!, options: .CaseInsensitiveSearch) != nil
         return c1 || c2
     }
-    
     
     // TableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -79,10 +92,9 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
         
         highligtSearch(cell.textLabel!, text: users[indexPath.row].fullname, highligt: searchTextField.text!)
         highligtSearch(cell.detailTextLabel!, text: users[indexPath.row].username, highligt: searchTextField.text!)
-//        cell.textLabel!.text = users[indexPath.row].fullname
-//        cell.detailTextLabel?.text = users[indexPath.row].username
         
         cell.detailTextLabel?.font = UIFont.italicSystemFontOfSize(11.0)
+        cell.accessoryType = Tools.areFriends(people.filter(searchFilter)[indexPath.row], tabBar.user) ? .Checkmark : .None
         
         return cell
     }
@@ -92,9 +104,14 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return people.filter(searchFilter).count
+        return searchTextField.text!.isEmpty ?
+            people.filter({Tools.areFriends($0, tabBar.user)}).count : people.filter(searchFilter).count
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedProfile = indexPath.row
+        performSegueWithIdentifier("viewProfileSegue", sender: self)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

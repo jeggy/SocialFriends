@@ -17,6 +17,8 @@ class TabFriendsViewController: UITableViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("I don't think this class is used....")
+        
         let tabBar = tabBarController as! TabBarViewController
         user = tabBar.user
         
@@ -34,20 +36,21 @@ class TabFriendsViewController: UITableViewController  {
                 self.tableView.reloadData()
             }
         }
-        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.textLabel!.text = user.friends![indexPath.row].fullname
-        cell.detailTextLabel?.text = user.friends![indexPath.row].username
+        
+        cell.textLabel!.text = user.getFriends()[indexPath.row].fullname
+        cell.detailTextLabel?.text = user.getFriends()[indexPath.row].username
+        
         cell.detailTextLabel?.font = UIFont.italicSystemFontOfSize(11.0)
 
         return cell
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return user.friends!.count
+        return user.getFriends().count
     }
     
 
