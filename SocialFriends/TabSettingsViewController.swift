@@ -10,6 +10,17 @@ import UIKit
 
 class TabSettingsViewController: UIViewController {
 
+    @IBOutlet weak var fullnameField: UITextField!
+    @IBOutlet weak var usernameField: UITextField!
+    @IBOutlet weak var currentPasswordField: UITextField!
+    @IBOutlet weak var newPasswordField: UITextField!
+    @IBOutlet weak var repeatPasswordField: UITextField!
+    @IBOutlet weak var aboutTextField: UITextView!
+    @IBOutlet weak var updateButton: UIButton!
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -17,11 +28,16 @@ class TabSettingsViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         // Navigation bar.
         self.tabBarController!.navigationItem.title = "Settings"
-        let updateButton = UIBarButtonItem(title: "Update", style: .Done, target: self, action: #selector(TabSettingsViewController.updatePressed(_:)))
+        let updateButton = UIBarButtonItem(title: "Logout", style: .Done, target: self, action: #selector(TabSettingsViewController.logoutPressed(_:)))
         self.tabBarController!.navigationItem.rightBarButtonItem = updateButton
     }
     
+    @IBAction func logoutPressed(sender: AnyObject) {
+        print("TODO: Logout!")
+    }
+    
     @IBAction func updatePressed(sender: AnyObject){
+        
         print("Test")
     }
     
@@ -30,8 +46,7 @@ class TabSettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func logoutPressed(sender: AnyObject) {
-    }
+    
 
     /*
     // MARK: - Navigation

@@ -374,7 +374,7 @@ class Database: NSObject {
         record.setObject(NSDate(), forKey: "time")
         
         db.saveRecord(record){record,error in
-            print("Obla")
+            print("Test")
             error?.description
         }
     }

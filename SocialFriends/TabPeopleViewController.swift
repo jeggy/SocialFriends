@@ -30,6 +30,12 @@ class TabPeopleViewController: UIViewController, UITableViewDataSource, UITableV
         tabBar.db.loadAllUsers(completionHandler: whenUsersLoaded)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        self.tabBarController?.navigationItem.title = "People"
+        self.tabBarController?.navigationItem.rightBarButtonItem = nil
+    }
+    
+    
     @IBAction func returned(sender: UIStoryboardSegue){
         print("returned PeopleView")
     }
