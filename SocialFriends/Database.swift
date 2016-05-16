@@ -210,6 +210,38 @@ class Database: NSObject {
         }
     }
     
+    func like(post: Post, user: User, completionHandler ch: () -> Void){
+        let record = CKRecord(recordType: "like_post")
+        
+        record.setObject(CKReference(record: post.recordName, action: .DeleteSelf), forKey: "post")
+        record.setObject(NSDate(), forKey: "time")
+        record.setObject(CKReference(record: user.record, action: .DeleteSelf), forKey: "user")
+        
+        db.saveRecord(record){_,_ in ch()}
+    }
+    
+    func unLike(post: Post, user: User, completionHandler ch: () -> Void){
+        let postRef = CKReference(record: post.recordName, action: .DeleteSelf)
+        let userRef = CKReference(record: user.record, action: .DeleteSelf)
+        
+        let predicate = NSPredicate(format: "post == %@ AND user == %@", postRef, userRef)
+        let query = CKQuery(recordType: "post_like", predicate: predicate)
+        
+        db.performQuery(query, inZoneWithID: nil){
+            records, error in
+            for record in records!{
+                self.db.deleteRecordWithID(record.recordID){
+                    _,_ in
+                    ch()
+                }
+            }
+            if records?.count == 0 || error != nil{
+                // TODO: Some warning.
+                ch()
+            }
+        }
+    }
+    
     /* *** User functions *** */
     func login(username:String, password: String, completionHandler ch: (User? -> Void)){
         let predicate = NSPredicate(format: "username == %@ AND password == %@", username, password)
@@ -231,8 +263,8 @@ class Database: NSObject {
                     return
                 }
             }else{
-                // TODO: This error (also?) happends when user is not connected to iCloud
-                print("Error: \(error), 'Login into iCloud on your device'")
+                // TODO: This error happends when user is not connected to iCloud
+                print("Error: \(error)\n 'Login into iCloud on your device'")
             }
             ch(nil)
         }

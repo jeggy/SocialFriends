@@ -73,11 +73,34 @@ class TabFeedViewController: UITableViewController {
     }
     
     @IBAction func likeOnPressed(sender: UIButton) {
+        sender.enabled = false
         let buttonRow = sender.tag
-//        db.like(post: posts[buttonRow], user: user){
-//            
-//        }
-        print(posts[buttonRow].content)
+        
+        if checkIfLiked(posts[buttonRow]){
+            sender.titleLabel!.text = "Like"
+            db.unLike(posts[buttonRow], user: user){
+                for i in 0...self.posts[buttonRow].likes!.count-1{
+                    if self.posts[buttonRow].likes![i].username == self.user.username{
+                        self.posts[buttonRow].likes!.removeAtIndex(i)
+                        break
+                    }
+                }
+                
+                dispatch_async(dispatch_get_main_queue()){
+                    sender.enabled = true
+                }
+            }
+        }else{
+            sender.titleLabel!.text = "Unlike"
+            db.like(posts[buttonRow], user: user){
+                self.posts[buttonRow].likes?.append(self.user)
+                
+                dispatch_async(dispatch_get_main_queue()){
+                    sender.enabled = true
+                }
+            }
+        }
+        
     }
     
     
@@ -94,16 +117,27 @@ class TabFeedViewController: UITableViewController {
             cell.timeLabel?.text = post.time.description // TODO:
             cell.contentTextView?.text = post.content
             cell.likesButton.setTitle(Tools.addS(post.likes!.count, text: "Like"), forState: .Normal)
-            cell.commentsButton.setTitle(Tools.addS(post.comments!.count, text: "Comment"), forState: .Normal)
             
-            cell.likesButton.tag = indexPath.row-1
-            cell.likesButton.addTarget(self, action: #selector(TabFeedViewController.likeOnPressed(_:)), forControlEvents: .TouchUpInside)
+            cell.likeButton.titleLabel!.text = (!checkIfLiked(post)) ? "Like " : "Unlike"
+            cell.likeButton.tag = indexPath.row-1
+            cell.likeButton.addTarget(self, action: #selector(TabFeedViewController.likeOnPressed(_:)), forControlEvents: .TouchUpInside)
             
             return cell
         }
         
         newPostField = tableView.dequeueReusableCellWithIdentifier("newPostCell", forIndexPath: indexPath) as! NewPostTableViewCell
         return newPostField
+    }
+    
+    func checkIfLiked(post: Post) -> Bool{
+        if let likes = post.likes{
+            for like in likes{
+                if like.username == user.username{
+                    return true
+                }
+            }
+        }
+        return false
     }
     
     override func didReceiveMemoryWarning() {

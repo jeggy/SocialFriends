@@ -16,9 +16,10 @@ class PostTableViewCell: UITableViewCell {
     @IBOutlet weak var contentTextView: UITextView!
     
     @IBOutlet weak var likesButton: UIButton!
-    @IBOutlet weak var commentsButton: UIButton!
-    @IBAction func likePressed(sender: AnyObject) {}
-    @IBAction func commetPressed(sender: AnyObject) {}
+    @IBAction func likesButtonPressed(sender: UIButton) {}
+    
+    @IBOutlet weak var likeButton: UIButton!
+    @IBAction func likePressed(sender: UIButton) {}
     
     
     

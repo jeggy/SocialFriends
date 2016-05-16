@@ -112,7 +112,8 @@ class TabProfileViewController: UIViewController, UITableViewDelegate, UITableVi
         cell.timeLabel?.text = post.time.description // TODO:
         cell.contentTextView?.text = post.content
         cell.likesButton.setTitle(Tools.addS(post.likes!.count, text: "Like"), forState: .Normal)
-        cell.commentsButton.setTitle(Tools.addS(post.comments!.count, text: "Comment"), forState: .Normal)
+        
+        // TODO: I removed comments
         
 //        cell.likesButton.tag = indexPath.row
 //        cell.likesButton.addTarget(self, action: "likeOnPressed:", forControlEvents: UIControlEvents.TouchUpInside)
